@@ -7,18 +7,14 @@ import { ModelType } from "./core/repository/ModelType";
 
 async function main(){
     try{
-        
-        const userPrompt = "Привет братишка!";
         const dialogManager = new DialogManager(new AxiosHttpSender(), ModelType.GPT4oMini);
-        const result = await dialogManager.sendMessageChat(userPrompt, false);
+        let result = await dialogManager.sendMessageChat("Привет братишка!", false);
 
-        let botMsg = '';
+        console.log(result.message);
 
-        result.forEach(data => {
-            botMsg += data.message;
-        })
+        result = await dialogManager.sendMessageChat("Когда был создан электровоз ВЛ80?", false);
 
-        console.log(botMsg);
+        console.log(result.message);
     } catch(err){
         console.error(err);
     }

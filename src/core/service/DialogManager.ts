@@ -1,39 +1,69 @@
 
-import { EventMsgSchemaDGOAi } from "../../schemas";
+import { EventMsgSchemaDGOAi, MessagesSchemaDGOAi } from "../../schemas";
 import { IHttpSender } from "../http/IHttpSender";
 import { ModelType } from "../repository/ModelType";
 import { USER_AGENT } from "../repository/UserAgent";
-import { EventStreamDGOAi } from "../utils/EventStream";
+import { EventStreamDGOAi, getFullMsgFromEventStreamList } from "../utils/EventStream";
+import { IChatBotResponse } from "./IChatBotResponse";
+
+
+class ChatBotResponseDGOAi implements IChatBotResponse {
+    result: typeof EventMsgSchemaDGOAi._output[]
+
+    private _message: string
+
+    constructor(result: typeof EventMsgSchemaDGOAi._output[]) {
+        this.result = result
+        this._message = ''
+    }
+
+    public get message(): string {
+        this._message = getFullMsgFromEventStreamList(this.result);
+        return this._message;
+    }
+}
 
 
 
 export class DialogManager {
     httpClient: IHttpSender
     modelType: ModelType
-    chatStore: object
+    chatStore: typeof MessagesSchemaDGOAi._output[]
+    _vqdCode: string | null
     _eventStreamHelp: EventStreamDGOAi
 
     constructor(httpClient: IHttpSender, modelType: ModelType) {
         this.httpClient = httpClient
         this.modelType = modelType
         this.chatStore = []
+        this._vqdCode = null
         this._eventStreamHelp = new EventStreamDGOAi()
     }
 
-    async sendMessageChat(body: string, stream: boolean): Promise<typeof EventMsgSchemaDGOAi._output[]> {
-        const vqdCode = await this._getVqdCode();
+    async sendMessageChat(body: string, stream: boolean): Promise<IChatBotResponse> {
+        if(this._vqdCode === null){
+            await this._getVqdCode();
+        }
+
+        const payloadMsg = MessagesSchemaDGOAi.safeParse({"role":"user","content":body});
+
+        if(!payloadMsg.success){
+            throw new Error(`Verification failed on payload Message ${payloadMsg.error}`)
+        }
+        this.chatStore.push(payloadMsg.data);
 
         const sendMsg = await this.httpClient.post('https://duckduckgo.com/duckchat/v1/chat', {
             'accept': 'text/event-stream',
-            'x-vqd-4': vqdCode,
+            'x-vqd-4': this._vqdCode,
             'user-agent': USER_AGENT,
         }, {
             "model": this.modelType,
-            "messages": [{"role":"user","content":body}]
-        },true);
+            "messages": this.chatStore
+        }, true);
+
+        this._vqdCode =  sendMsg.headers['x-vqd-4'];
 
         const streamBody = sendMsg.body;
-        
         const listOfSchemas: typeof EventMsgSchemaDGOAi._output[] = [];
 
         return new Promise((resolve, reject) => {
@@ -45,7 +75,19 @@ export class DialogManager {
             });
     
             streamBody.on('end', () => {
-                return resolve(listOfSchemas);
+                const botResponse: ChatBotResponseDGOAi = new ChatBotResponseDGOAi(listOfSchemas);
+
+                const botMsgData = MessagesSchemaDGOAi.safeParse({
+                    role: 'assistant',
+                    content: botResponse.message
+                });
+
+                // Добавляем ответ бота в историю
+                if(botMsgData.success){
+                    this.chatStore.push(botMsgData.data);
+                }
+
+                return resolve(botResponse);
             })
 
             streamBody.on('error', (error: any) => {
@@ -55,16 +97,21 @@ export class DialogManager {
 
     }
 
-    async _getVqdCode(): Promise<string|null> {
+    
+    async _getVqdCode(): Promise<void>{
+        /**
+         * Получить Vqd код для общения с чат ботом
+         * @returns Vqd код
+         */
         const res = await this.httpClient.get('https://duckduckgo.com/duckchat/v1/status', {
             'x-vqd-accept': '1',
             'user-agent': USER_AGENT
         });
 
         if(res.status === 200 && res.headers['x-vqd-4'] != null){
-            return res.headers['x-vqd-4'];
+            this._vqdCode = res.headers['x-vqd-4']; 
         }
 
-        return null;
+ 
     }
 }

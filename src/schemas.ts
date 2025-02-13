@@ -10,3 +10,8 @@ export const EventMsgSchemaDGOAi = z.object({
     model: z.string() 
 });
 
+
+export const MessagesSchemaDGOAi = z.object({
+    role: z.string(),
+    content: z.string()
+})

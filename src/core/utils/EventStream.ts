@@ -43,3 +43,13 @@ export class EventStreamDGOAi {
 
     }
 }
+
+export const getFullMsgFromEventStreamList = (dataList: typeof EventMsgSchemaDGOAi._output[] ): string => {
+    let botMsg = '';
+
+    dataList.forEach(data => {
+        botMsg += data.message;
+    })
+
+    return botMsg;
+};
