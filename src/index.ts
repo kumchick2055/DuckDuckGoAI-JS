@@ -1,20 +1,17 @@
-import "reflect-metadata"
 
-import { DialogManager } from "./core/service/DialogManager";
-import { AxiosHttpSender } from "./core/http/AxiosHttpSender";
-import { ModelType } from "./core/repository/ModelType";
+
+import  DialogManager  from "./core/service/DialogManager.ts";
+import { ModelType } from "./core/repository/ModelType.ts";
+
 
 
 async function main(){
     try{
-        const dialogManager = new DialogManager(new AxiosHttpSender(), ModelType.GPT4oMini);
-        let result = await dialogManager.sendMessageChat("Привет братишка!", false);
-
+        const dialogManager = new DialogManager(ModelType.GPT4oMini);
+        let result = await dialogManager.sendMessageChat(`как твои дела?`);
         console.log(result.message);
-
-        result = await dialogManager.sendMessageChat("Когда был создан электровоз ВЛ80?", false);
-
-        console.log(result.message);
+        result = await dialogManager.sendMessageChat(`Как написать на питоне http запрос?`)
+        console.log(result.message)
     } catch(err){
         console.error(err);
     }

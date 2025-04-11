@@ -1,8 +1,8 @@
 # DuckDuckGoAiJS
-Библиотека для работы с DuckDuckGoAI на TypeScript/JS
+Wrapper over private API DuckDuckGoAI on TS/JS
 
-_На данный момент находится в разработке :C_
-# Запуск проекта
+_Currently under development :C_
+# Project launch
 ```bash
 npm run start
 ```

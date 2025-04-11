@@ -4,3 +4,5 @@ export enum ModelType {
     Claude3Haiku = 'claude-3-haiku-20240307',
     Mistral8x7B = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
 }
+
+export const FE_VERSION = 'serp_20250410_071825_ET-227034fa144d75d4af83'

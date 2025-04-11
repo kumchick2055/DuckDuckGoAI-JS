@@ -1,13 +1,16 @@
-import axios, { AxiosInstance, ResponseType } from "axios";
+import axios from "axios";
+import type  { AxiosInstance, ResponseType } from "axios"
+import type { IHttpSender } from "./IHttpSender.ts";
 
-import { IHttpSender, Response } from "./IHttpSender";
-import { USER_AGENT } from "../repository/UserAgent";
+import { Response } from "./IHttpSender.ts"
+import { USER_AGENT } from "../repository/UserAgent.ts";
+// import { gotScraping } from "got-scraping";
 
-
-export class AxiosHttpSender implements IHttpSender {
+export class HttpSender implements IHttpSender {
     client: AxiosInstance;
 
     constructor(){
+        
         this.client = axios.create({
             headers: {
                 'user-agent': USER_AGENT
@@ -30,7 +33,6 @@ export class AxiosHttpSender implements IHttpSender {
         if(stream){
             resType = 'stream';
         }
-
 
         const res = await axios.post(url, body, {
             headers,
