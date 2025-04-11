@@ -6,3 +6,9 @@ _Currently under development :C_
 ```bash
 npm run start
 ```
+
+# Disclaimer
+By using this package you automatically accept the user agreement
+https://duckduckgo.com/duckai/privacy-terms
+
+I do not bear any responsibility for violation of ToS
