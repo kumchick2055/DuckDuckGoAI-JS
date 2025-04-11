@@ -1,4 +1,4 @@
-# DuckDuckGoAiJS
+# DuckDuckGoAi-JS
 Wrapper over private API DuckDuckGoAI on TS/JS
 
 _Currently under development :C_

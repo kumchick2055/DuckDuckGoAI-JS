@@ -17,7 +17,7 @@
   "dependencies": {
     "@types/jsdom": "^21.1.7",
     "axios": "^1.7.9",
-    "deobfuscator": "^2.4.5",
+    "deobfuscator": "github:kumchick2055/synchrony",
     "got-scraping": "^4.0.0",
     "jsdom": "^26.0.0",
     "reflect-metadata": "^0.2.2",

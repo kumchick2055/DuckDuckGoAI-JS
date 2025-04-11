@@ -3,12 +3,16 @@ import { UA_BRANDS, USER_AGENT } from "../repository/UserAgent.ts"
 import { BASE_64, SHA_256 } from "../repository/Regex.ts"
 import { JSDOM } from 'jsdom';
 import { Deobfuscator } from "deobfuscator";
+import type {DeobfuscateOptions} from "deobfuscator";
 
 
 export const extractData = async (data: string): Promise<object> => {
     // Просто заберите у меня компьютер чтобы я такое не писал...
     let decodedData = Buffer.from(data, 'base64').toString('utf-8')
+   
     const deobf = new Deobfuscator()
+
+
     decodedData = await deobf.deobfuscateSource(decodedData, {
         
     })

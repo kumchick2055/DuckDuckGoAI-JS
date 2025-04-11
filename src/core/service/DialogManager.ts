@@ -150,7 +150,7 @@ export default class DialogManager {
             this._vqdCode = res.headers['x-vqd-4']; 
             
             this._vqdHash1 = await getClientHash(res.headers['x-vqd-hash-1']); 
-            console.log(this._vqdHash1)
+
         }
 
  
