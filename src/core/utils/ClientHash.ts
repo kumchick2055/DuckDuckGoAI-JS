@@ -1,9 +1,8 @@
 import { webcrypto } from "crypto"
-import { UA_BRANDS, USER_AGENT } from "../repository/UserAgent.ts"
-import { BASE_64, SHA_256 } from "../repository/Regex.ts"
+import { UA_BRANDS, USER_AGENT } from "../repository/UserAgent"
+import { BASE_64, SHA_256 } from "../repository/Regex"
 import { JSDOM } from 'jsdom';
 import { Deobfuscator } from "deobfuscator";
-import type {DeobfuscateOptions} from "deobfuscator";
 
 
 export const extractData = async (data: string): Promise<object> => {

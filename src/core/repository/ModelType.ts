@@ -6,3 +6,12 @@ export enum ModelType {
 }
 
 export const FE_VERSION = 'serp_20250410_071825_ET-227034fa144d75d4af83'
+
+
+export function getModelTypeFromString(modelStr: string): ModelType {
+    const model = Object.values(ModelType).find(value => value === modelStr);
+    if (!model) {
+        throw new Error(`Invalid model type: ${modelStr}`);
+    }
+    return model;
+}

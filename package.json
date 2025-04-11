@@ -3,22 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "bin": {
+    "dgai-cli": "./dist/src/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --import ./loader.mjs ./src/index.ts"
+    "start": "npx ts-node ./src/index.ts",
+    "build": "npx tsc"
   },
   "author": "kumchick",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^9.0.7",
     "@types/node": "^22.13.2",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@inquirer/input": "^4.1.9",
+    "@types/estree": "^1.0.7",
     "@types/jsdom": "^21.1.7",
     "axios": "^1.7.9",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
     "deobfuscator": "github:kumchick2055/synchrony",
     "got-scraping": "^4.0.0",
+    "inquirer": "^12.5.2",
     "jsdom": "^26.0.0",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",

@@ -1,12 +1,12 @@
 
-import { EventMsgSchemaDGOAi, MessagesSchemaDGOAi } from "../../schemas.ts";
-import { HttpSender } from "../http/HttpSender.ts";
-import type { IHttpSender } from "../http/IHttpSender.ts";
-import { FE_VERSION, ModelType } from "../repository/ModelType.ts";
-import { USER_AGENT } from "../repository/UserAgent.ts";
-import { getClientHash } from "../utils/ClientHash.ts";
-import { EventStreamDGOAi, getFullMsgFromEventStreamList } from "../utils/EventStream.ts";
-import type { IChatBotResponse }  from "./IChatBotResponse.ts";
+import { EventMsgSchemaDGOAi, MessagesSchemaDGOAi } from "../../schemas";
+import { HttpSender } from "../http/HttpSender";
+import type { IHttpSender } from "../http/IHttpSender";
+import { FE_VERSION, ModelType } from "../repository/ModelType";
+import { USER_AGENT } from "../repository/UserAgent";
+import { getClientHash } from "../utils/ClientHash";
+import { EventStreamDGOAi, getFullMsgFromEventStreamList } from "../utils/EventStream";
+import type { IChatBotResponse }  from "./IChatBotResponse";
 
 
 class ChatBotResponseDGOAi implements IChatBotResponse {

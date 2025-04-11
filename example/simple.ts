@@ -1,6 +1,6 @@
 
 
-import DialogManager  from "../src/core/service/DialogManager.ts";
+import DialogManager  from "../src/core/service/DialogManager";
 import { ModelType } from "../src/core/repository/ModelType";
 
 

@@ -1,5 +1,5 @@
-import { EventMsgSchemaDGOAi } from "../../schemas.ts";
-import { REGEX_JSON } from "../repository/Regex.ts";
+import { EventMsgSchemaDGOAi } from "../../schemas";
+import { REGEX_JSON } from "../repository/Regex";
 
 
 export class EventStreamDGOAi {

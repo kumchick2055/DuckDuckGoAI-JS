@@ -2,8 +2,8 @@ import axios from "axios";
 import type  { AxiosInstance, ResponseType } from "axios"
 import type { IHttpSender } from "./IHttpSender.ts";
 
-import { Response } from "./IHttpSender.ts"
-import { USER_AGENT } from "../repository/UserAgent.ts";
+import { Response } from "./IHttpSender"
+import { USER_AGENT } from "../repository/UserAgent";
 // import { gotScraping } from "got-scraping";
 
 export class HttpSender implements IHttpSender {
