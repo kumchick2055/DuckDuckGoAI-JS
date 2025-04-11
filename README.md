@@ -25,11 +25,12 @@ async function main(){
 
 main();
 ```
-
-# Project launch
+# Example of working with CLI
+Running:
 ```bash
-npm run start
+dgai-cli
 ```
+![alt text](image.png)
 
 # Disclaimer
 By using this package you automatically accept the user agreement
